@@ -1,8 +1,8 @@
 # Button
 
 **Category:** Action
-**Version:** 0.1.0
-**Figma node:** `10:3` — [Open in Figma](https://www.figma.com/design/J6PCrb0xiyDTPxnB5hTfP3/?node-id=10-3)
+**Version:** 0.2.0
+**Figma node:** `2045:85` (branch `79NGoL3Kwr4i4jvcUF6yWP`) — [Open in Figma](https://www.figma.com/design/J6PCrb0xiyDTPxnB5hTfP3/branch/79NGoL3Kwr4i4jvcUF6yWP/AI-ready-DS---POC?node-id=2045-85)
 **Contract:** `contracts/button.contract.json`
 
 ---
@@ -22,7 +22,7 @@ Default width is 300px, matching a standard mobile canvas. When placed inside a 
 | `size`  | enum   | `Small` \| `Medium` \| `Large`      | `Small`   |
 | `state` | enum   | `Default` \| `Hover` \| `Active` \| `Disabled` | `Default` |
 
-**`size`** controls padding, border radius, and typography scale. It does not affect color.
+**`size`** controls padding and typography scale. It does not affect color. All sizes use full pill radius.
 **`state`** controls background, border, and label color. It does not affect size or typography.
 
 These two axes are fully independent. Every combination is defined in Figma (12 variants total).
@@ -31,14 +31,14 @@ These two axes are fully independent. Every combination is defined in Figma (12 
 
 ## Sizes
 
-| Size   | Font size | Padding X | Padding Y | Radius   |
-|--------|-----------|-----------|-----------|----------|
-| Small  | 14px      | 12px      | 8px       | 8px      |
-| Medium | 16px      | 16px      | 12px      | 16px     |
-| Large  | 18px      | 24px      | 16px      | full (9999px) |
+| Size   | Font size | Line height | Padding X | Padding Y | Radius        |
+|--------|-----------|-------------|-----------|-----------|---------------|
+| Small  | 14px      | 18px        | 12px      | 8px       | 9999px (pill) |
+| Medium | 16px      | 20px        | 16px      | 12px      | 9999px (pill) |
+| Large  | 18px      | 22px        | 24px      | 16px      | 9999px (pill) |
 
 Gap between elements is 8px on all sizes.
-Font is always Inter, weight 600, line-height 1.2.
+Font is always Inter, weight 600 (Semi Bold).
 
 **When to use each size:**
 - **Large** — full-bleed mobile layouts where the button fills the viewport width
@@ -56,7 +56,7 @@ Font is always Inter, weight 600, line-height 1.2.
 | Active   | `#1e40af` (blue-800)    | `#2563eb` (blue-600)         | `#ffffff` (neutral-0)           |
 | Disabled | `#bfdbfe` (blue-200)    | `#bfdbfe` (blue-200)         | `#94a3b8` (neutral-400)         |
 
-Note: `Hover` and `Active` are interaction states. Do not set them statically in an implementation — they are managed by the UI interaction layer.
+Note: Border color stays at blue-600 on Hover and Active — only the background changes. `Hover` and `Active` are interaction states. Do not set them statically in an implementation — they are managed by the UI interaction layer.
 
 ---
 
@@ -78,19 +78,29 @@ All visual properties are controlled by component-level tokens. Never hardcode v
 |------------|---------------------------------|---------------------------------|---------------------------------|
 | Padding X  | `button/spacing/padding-x-sm`   | `button/spacing/padding-x-md`   | `button/spacing/padding-x-lg`   |
 | Padding Y  | `button/spacing/padding-y-sm`   | `button/spacing/padding-y-md`   | `button/spacing/padding-y-lg`   |
-| Radius     | `button/radius/sm`              | `button/radius/md`              | `button/radius/lg`              |
 | Gap        | `button/spacing/gap`            | `button/spacing/gap`            | `button/spacing/gap`            |
+| Radius     | `button/radius/full`            | `button/radius/full`            | `button/radius/full`            |
 
-### Typography tokens (size-scoped)
+### Typography (Text Styles)
 
-| Property | Small                                 | Medium                                | Large                                 |
-|----------|---------------------------------------|---------------------------------------|---------------------------------------|
-| Family   | `button/typography/label-sm/family`   | `button/typography/label-md/family`   | `button/typography/label-lg/family`   |
-| Size     | `button/typography/label-sm/size`     | `button/typography/label-md/size`     | `button/typography/label-lg/size`     |
-| Weight   | `button/typography/label-sm/weight`   | `button/typography/label-md/weight`   | `button/typography/label-lg/weight`   |
-| Leading  | `button/typography/label-sm/leading`  | `button/typography/label-md/leading`  | `button/typography/label-lg/leading`  |
+Typography is applied via Figma Text Styles, not individual component-layer variables. Each Text Style binds to semantic variables which alias to primitives.
 
-### Token alias chain
+| Size   | Text Style         | Font           | Size | Weight | Line height |
+|--------|--------------------|----------------|------|--------|-------------|
+| Small  | `Button/Label-sm`  | Inter          | 14px | 600    | 18px        |
+| Medium | `Button/Label-md`  | Inter          | 16px | 600    | 20px        |
+| Large  | `Button/Label-lg`  | Inter          | 18px | 600    | 22px        |
+
+Text Style binding chain:
+```
+Text Style: Button/Label-sm
+  → fontFamily bound to semantic: typography/label-sm/family  → primitives: typography/family/base = "Inter"
+  → fontSize  bound to semantic: typography/label-sm/size    → primitives: typography/size/sm = 14
+  → fontWeight bound to semantic: typography/label-sm/weight  → primitives: typography/weight/semibold = 600
+  → lineHeight bound to semantic: typography/label-sm/leading → primitives: typography/leading/sm = 18
+```
+
+### Token alias chain examples
 
 Component tokens resolve through two layers before reaching a raw value:
 
@@ -105,7 +115,7 @@ button/spacing/padding-x-lg
     → primitive: spacing/6
       → 24
 
-button/radius/lg
+button/radius/full
   → semantic: radius/component-full
     → primitive: radius/full
       → 9999
@@ -139,6 +149,7 @@ Do not skip layers. Component tokens must alias semantic tokens. Semantic tokens
 - **Label:** Always center-aligned, always single-line. Do not wrap the label text.
 - **Color:** All values must resolve through the token chain. Never hardcode hex values.
 - **Typography:** Always Inter SemiBold (weight 600). Do not override font family or weight.
+- **Border:** Stays constant (blue-600) on hover and active — only background changes.
 - **Variants:** Two axes only — `size` and `state`. No other visual properties are exposed or customisable.
 - **Token chain:** Component tokens alias semantic tokens. Semantic tokens alias primitives. This chain must remain unbroken.
 

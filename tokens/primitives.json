@@ -44,6 +44,7 @@
   "typography/weight/medium":      { "value": 500 },
   "typography/weight/semibold":    { "value": 600 },
   "typography/weight/bold":        { "value": 700 },
-  "typography/leading/tight":      { "value": 1.2 },
-  "typography/leading/normal":     { "value": 1.5 }
+  "typography/leading/sm":         { "value": 18 },
+  "typography/leading/md":         { "value": 20 },
+  "typography/leading/lg":         { "value": 22 }
 }

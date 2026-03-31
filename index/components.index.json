@@ -1,13 +1,14 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Authoritative list of all components in this design system. Check this file before creating or referencing any component. Do not assume a component exists if it is not listed here.",
   "components": [
     {
       "name": "Button",
       "status": "defined",
       "category": "action",
-      "figmaNodeId": "10:3",
+      "figmaNodeId": "2045:85",
       "figmaFileKey": "J6PCrb0xiyDTPxnB5hTfP3",
+      "figmaBranchKey": "79NGoL3Kwr4i4jvcUF6yWP",
       "contract": "contracts/button.contract.json",
       "docs": "docs/button.md",
       "props": {

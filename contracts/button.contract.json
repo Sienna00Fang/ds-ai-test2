@@ -2,9 +2,10 @@
   "identity": {
     "name": "Button",
     "category": "action",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "figmaFileKey": "J6PCrb0xiyDTPxnB5hTfP3",
-    "figmaNodeId": "10:3"
+    "figmaBranchKey": "79NGoL3Kwr4i4jvcUF6yWP",
+    "figmaNodeId": "2045:85"
   },
 
   "intent": "Full-width primary CTA button for banking interfaces. Use for the single most important action on a screen. Set to fill container when placed inside a layout frame. Default width is 300px, matching a standard mobile canvas. Intended for login screens, confirmation flows, and onboarding steps.",
@@ -14,7 +15,7 @@
       "type": "enum",
       "values": ["Small", "Medium", "Large"],
       "default": "Small",
-      "description": "Controls padding, border radius, and typography scale. Does not change color."
+      "description": "Controls padding and typography scale. Does not change color. All sizes use full pill radius."
     },
     "state": {
       "type": "enum",
@@ -51,50 +52,39 @@
       }
     },
     "spacing": {
-      "description": "Spacing and radius tokens are size-scoped. Gap is shared across all sizes.",
+      "description": "Spacing tokens are size-scoped. Gap is shared across all sizes. All sizes use full pill radius.",
       "shared": {
-        "gap":           "button/spacing/gap"
+        "gap":           "button/spacing/gap",
+        "radius":        "button/radius/full"
       },
       "bySize": {
         "Small": {
           "padding-x":   "button/spacing/padding-x-sm",
-          "padding-y":   "button/spacing/padding-y-sm",
-          "radius":      "button/radius/sm"
+          "padding-y":   "button/spacing/padding-y-sm"
         },
         "Medium": {
           "padding-x":   "button/spacing/padding-x-md",
-          "padding-y":   "button/spacing/padding-y-md",
-          "radius":      "button/radius/md"
+          "padding-y":   "button/spacing/padding-y-md"
         },
         "Large": {
           "padding-x":   "button/spacing/padding-x-lg",
-          "padding-y":   "button/spacing/padding-y-lg",
-          "radius":      "button/radius/lg"
+          "padding-y":   "button/spacing/padding-y-lg"
         }
       }
     },
     "typography": {
-      "description": "Typography tokens are size-scoped. Family, weight, and leading are identical across sizes; only size differs.",
-      "bySize": {
-        "Small": {
-          "family":      "button/typography/label-sm/family",
-          "size":        "button/typography/label-sm/size",
-          "weight":      "button/typography/label-sm/weight",
-          "leading":     "button/typography/label-sm/leading"
-        },
-        "Medium": {
-          "family":      "button/typography/label-md/family",
-          "size":        "button/typography/label-md/size",
-          "weight":      "button/typography/label-md/weight",
-          "leading":     "button/typography/label-md/leading"
-        },
-        "Large": {
-          "family":      "button/typography/label-lg/family",
-          "size":        "button/typography/label-lg/size",
-          "weight":      "button/typography/label-lg/weight",
-          "leading":     "button/typography/label-lg/leading"
-        }
-      }
+      "description": "Typography is applied via Figma Text Styles. Each size has one Text Style bound to semantic variables. No individual component-layer typography variables exist.",
+      "textStyles": {
+        "Small":  "Button/Label-sm",
+        "Medium": "Button/Label-md",
+        "Large":  "Button/Label-lg"
+      },
+      "resolvedValues": {
+        "Small":  { "family": "Inter", "weight": 600, "size": 14, "lineHeight": 18 },
+        "Medium": { "family": "Inter", "weight": 600, "size": 16, "lineHeight": 20 },
+        "Large":  { "family": "Inter", "weight": 600, "size": 18, "lineHeight": 22 }
+      },
+      "tokenChain": "Text Style → semantic variables → primitive variables"
     }
   },
 
@@ -123,7 +113,8 @@
     "All color values must resolve through the token chain — never hardcode hex values.",
     "Typography is always Inter SemiBold (weight 600). Do not override font family or weight.",
     "There is only one variant axis for color (state) and one for size. No other visual properties are exposed.",
-    "The token alias chain must remain unbroken: component tokens alias semantic tokens, semantic tokens alias primitives."
+    "The token alias chain must remain unbroken: component tokens alias semantic tokens, semantic tokens alias primitives.",
+    "Border color stays constant on hover and active states — only background changes."
   ],
 
   "alternatives": [

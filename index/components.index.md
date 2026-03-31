@@ -17,7 +17,7 @@ Do not assume a component exists if it is not listed here.
 |-------------|----------------------------------------------------|
 | Status      | `defined`                                          |
 | Category    | action                                             |
-| Figma node  | `10:3` in file `J6PCrb0xiyDTPxnB5hTfP3`           |
+| Figma node  | `2045:85` in branch `79NGoL3Kwr4i4jvcUF6yWP`      |
 | Contract    | `contracts/button.contract.json`                   |
 | Docs        | `docs/button.md`                                   |
 

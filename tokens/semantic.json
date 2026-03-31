@@ -30,18 +30,28 @@
   "radius/component-md":           { "value": "{primitives.radius.lg}" },
   "radius/component-full":         { "value": "{primitives.radius.full}" },
 
-  "typography/label-sm/family":    { "value": "{primitives.typography.family.base}" },
-  "typography/label-sm/size":      { "value": "{primitives.typography.size.sm}" },
-  "typography/label-sm/weight":    { "value": "{primitives.typography.weight.semibold}" },
-  "typography/label-sm/leading":   { "value": "{primitives.typography.leading.tight}" },
-
-  "typography/label-md/family":    { "value": "{primitives.typography.family.base}" },
-  "typography/label-md/size":      { "value": "{primitives.typography.size.md}" },
-  "typography/label-md/weight":    { "value": "{primitives.typography.weight.semibold}" },
-  "typography/label-md/leading":   { "value": "{primitives.typography.leading.tight}" },
-
-  "typography/label-lg/family":    { "value": "{primitives.typography.family.base}" },
-  "typography/label-lg/size":      { "value": "{primitives.typography.size.lg}" },
-  "typography/label-lg/weight":    { "value": "{primitives.typography.weight.semibold}" },
-  "typography/label-lg/leading":   { "value": "{primitives.typography.leading.tight}" }
+  "typography/label-sm": {
+    "value": {
+      "fontFamily": "{primitives.typography.family.base}",
+      "fontSize": "{primitives.typography.size.sm}",
+      "fontWeight": "{primitives.typography.weight.semibold}",
+      "lineHeight": "{primitives.typography.leading.sm}"
+    }
+  },
+  "typography/label-md": {
+    "value": {
+      "fontFamily": "{primitives.typography.family.base}",
+      "fontSize": "{primitives.typography.size.md}",
+      "fontWeight": "{primitives.typography.weight.semibold}",
+      "lineHeight": "{primitives.typography.leading.md}"
+    }
+  },
+  "typography/label-lg": {
+    "value": {
+      "fontFamily": "{primitives.typography.family.base}",
+      "fontSize": "{primitives.typography.size.lg}",
+      "fontWeight": "{primitives.typography.weight.semibold}",
+      "lineHeight": "{primitives.typography.leading.lg}"
+    }
+  }
 }

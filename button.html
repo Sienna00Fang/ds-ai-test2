@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Button — Design System POC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ================================================
+     PRIMITIVES — raw values, named by scale position
+     Source: tokens/primitives.json
+     ================================================ */
+  :root {
+    /* color/blue */
+    --primitives-color-blue-50:  #eff6ff;
+    --primitives-color-blue-100: #dbeafe;
+    --primitives-color-blue-200: #bfdbfe;
+    --primitives-color-blue-300: #93c5fd;
+    --primitives-color-blue-400: #60a5fa;
+    --primitives-color-blue-500: #3b82f6;
+    --primitives-color-blue-600: #2563eb;
+    --primitives-color-blue-700: #1d4ed8;
+    --primitives-color-blue-800: #1e40af;
+    --primitives-color-blue-900: #1e3a8a;
+
+    /* color/neutral */
+    --primitives-color-neutral-0:   #ffffff;
+    --primitives-color-neutral-50:  #f8fafc;
+    --primitives-color-neutral-100: #f1f5f9;
+    --primitives-color-neutral-200: #e2e8f0;
+    --primitives-color-neutral-300: #cbd5e1;
+    --primitives-color-neutral-400: #94a3b8;
+    --primitives-color-neutral-500: #64748b;
+    --primitives-color-neutral-600: #475569;
+    --primitives-color-neutral-700: #334155;
+    --primitives-color-neutral-800: #1e293b;
+    --primitives-color-neutral-900: #0f172a;
+
+    /* spacing */
+    --primitives-spacing-2:  8px;
+    --primitives-spacing-3:  12px;
+    --primitives-spacing-4:  16px;
+    --primitives-spacing-6:  24px;
+
+    /* radius */
+    --primitives-radius-md:   8px;
+    --primitives-radius-lg:   12px;
+    --primitives-radius-full: 9999px;
+
+    /* typography */
+    --primitives-typography-family-base:      'Inter', sans-serif;
+    --primitives-typography-size-sm:          14px;
+    --primitives-typography-size-md:          16px;
+    --primitives-typography-size-lg:          18px;
+    --primitives-typography-weight-semibold:  600;
+    --primitives-typography-leading-sm:       18px;
+    --primitives-typography-leading-md:       20px;
+    --primitives-typography-leading-lg:       22px;
+  }
+
+  /* ================================================
+     SEMANTIC — aliases to primitives, named by role
+     Source: tokens/semantic.json (light mode)
+     ================================================ */
+  :root {
+    /* color/action */
+    --semantic-color-action-primary:          var(--primitives-color-blue-600);
+    --semantic-color-action-primary-hover:    var(--primitives-color-blue-700);
+    --semantic-color-action-primary-active:   var(--primitives-color-blue-800);
+    --semantic-color-action-primary-disabled: var(--primitives-color-blue-200);
+
+    /* color/text */
+    --semantic-color-text-on-action:          var(--primitives-color-neutral-0);
+    --semantic-color-text-on-action-disabled: var(--primitives-color-neutral-400);
+
+    /* color/border */
+    --semantic-color-border-action:           var(--primitives-color-blue-600);
+    --semantic-color-border-action-disabled:  var(--primitives-color-blue-200);
+
+    /* color/surface */
+    --semantic-color-surface-page:            var(--primitives-color-neutral-50);
+
+    /* spacing */
+    --semantic-spacing-component-xs: var(--primitives-spacing-2);
+    --semantic-spacing-component-sm: var(--primitives-spacing-3);
+    --semantic-spacing-component-md: var(--primitives-spacing-4);
+    --semantic-spacing-component-lg: var(--primitives-spacing-6);
+
+    /* radius */
+    --semantic-radius-component-sm:   var(--primitives-radius-md);
+    --semantic-radius-component-md:   var(--primitives-radius-lg);
+    --semantic-radius-component-full: var(--primitives-radius-full);
+
+    /* typography composites */
+    --semantic-typography-label-sm-family:      var(--primitives-typography-family-base);
+    --semantic-typography-label-sm-size:        var(--primitives-typography-size-sm);
+    --semantic-typography-label-sm-weight:      var(--primitives-typography-weight-semibold);
+    --semantic-typography-label-sm-line-height: var(--primitives-typography-leading-sm);
+
+    --semantic-typography-label-md-family:      var(--primitives-typography-family-base);
+    --semantic-typography-label-md-size:        var(--primitives-typography-size-md);
+    --semantic-typography-label-md-weight:      var(--primitives-typography-weight-semibold);
+    --semantic-typography-label-md-line-height: var(--primitives-typography-leading-md);
+
+    --semantic-typography-label-lg-family:      var(--primitives-typography-family-base);
+    --semantic-typography-label-lg-size:        var(--primitives-typography-size-lg);
+    --semantic-typography-label-lg-weight:      var(--primitives-typography-weight-semibold);
+    --semantic-typography-label-lg-line-height: var(--primitives-typography-leading-lg);
+  }
+
+  /* ================================================
+     COMPONENT — aliases to semantic, named by
+     component property and state
+     Source: tokens/component.json
+     ================================================ */
+  .btn {
+    /* color */
+    --btn-color-bg:              var(--semantic-color-action-primary);
+    --btn-color-bg-hover:        var(--semantic-color-action-primary-hover);
+    --btn-color-bg-active:       var(--semantic-color-action-primary-active);
+    --btn-color-bg-disabled:     var(--semantic-color-action-primary-disabled);
+    --btn-color-label:           var(--semantic-color-text-on-action);
+    --btn-color-label-disabled:  var(--semantic-color-text-on-action-disabled);
+    --btn-color-border:          var(--semantic-color-border-action);
+    --btn-color-border-disabled: var(--semantic-color-border-action-disabled);
+
+    /* spacing */
+    --btn-padding-x-sm:          var(--semantic-spacing-component-sm);
+    --btn-padding-x-md:          var(--semantic-spacing-component-md);
+    --btn-padding-x-lg:          var(--semantic-spacing-component-lg);
+    --btn-padding-y-sm:          var(--semantic-spacing-component-xs);
+    --btn-padding-y-md:          var(--semantic-spacing-component-sm);
+    --btn-padding-y-lg:          var(--semantic-spacing-component-md);
+    --btn-gap:                   var(--semantic-spacing-component-xs);
+
+    /* radius */
+    --btn-radius-full:           var(--semantic-radius-component-full);
+
+    /* typography — component layer (maps to semantic composites) */
+    --btn-typography-sm-family:      var(--semantic-typography-label-sm-family);
+    --btn-typography-sm-size:        var(--semantic-typography-label-sm-size);
+    --btn-typography-sm-weight:      var(--semantic-typography-label-sm-weight);
+    --btn-typography-sm-line-height: var(--semantic-typography-label-sm-line-height);
+    --btn-typography-md-family:      var(--semantic-typography-label-md-family);
+    --btn-typography-md-size:        var(--semantic-typography-label-md-size);
+    --btn-typography-md-weight:      var(--semantic-typography-label-md-weight);
+    --btn-typography-md-line-height: var(--semantic-typography-label-md-line-height);
+    --btn-typography-lg-family:      var(--semantic-typography-label-lg-family);
+    --btn-typography-lg-size:        var(--semantic-typography-label-lg-size);
+    --btn-typography-lg-weight:      var(--semantic-typography-label-lg-weight);
+    --btn-typography-lg-line-height: var(--semantic-typography-label-lg-line-height);
+  }
+
+  /* ================================================
+     BUTTON BASE
+     ================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-gap);
+    border: 1px solid var(--btn-color-border);
+    background: var(--btn-color-bg);
+    color: var(--btn-color-label);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .btn:hover {
+    background: var(--btn-color-bg-hover);
+    border-color: var(--btn-color-border);
+  }
+
+  .btn:active {
+    background: var(--btn-color-bg-active);
+    border-color: var(--btn-color-border);
+  }
+
+  .btn:disabled {
+    background: var(--btn-color-bg-disabled);
+    border-color: var(--btn-color-border-disabled);
+    color: var(--btn-color-label-disabled);
+    cursor: not-allowed;
+  }
+
+  /* ================================================
+     SIZE VARIANTS
+     ================================================ */
+  .btn--sm {
+    width: 300px;
+    padding: var(--btn-padding-y-sm) var(--btn-padding-x-sm);
+    border-radius: var(--btn-radius-full);
+    font-family: var(--btn-typography-sm-family);
+    font-size: var(--btn-typography-sm-size);
+    font-weight: var(--btn-typography-sm-weight);
+    line-height: var(--btn-typography-sm-line-height);
+  }
+
+  .btn--md {
+    width: 300px;
+    padding: var(--btn-padding-y-md) var(--btn-padding-x-md);
+    border-radius: var(--btn-radius-full);
+    font-family: var(--btn-typography-md-family);
+    font-size: var(--btn-typography-md-size);
+    font-weight: var(--btn-typography-md-weight);
+    line-height: var(--btn-typography-md-line-height);
+  }
+
+  .btn--lg {
+    width: 300px;
+    padding: var(--btn-padding-y-lg) var(--btn-padding-x-lg);
+    border-radius: var(--btn-radius-full);
+    font-family: var(--btn-typography-lg-family);
+    font-size: var(--btn-typography-lg-size);
+    font-weight: var(--btn-typography-lg-weight);
+    line-height: var(--btn-typography-lg-line-height);
+  }
+
+  /* ================================================
+     DEMO PAGE
+     ================================================ */
+  body {
+    margin: 0;
+    padding: 48px;
+    background: var(--semantic-color-surface-page);
+    font-family: var(--primitives-typography-family-base);
+  }
+
+  h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primitives-color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 16px;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+</style>
+</head>
+<body>
+
+  <h2>Small</h2>
+  <div class="row">
+    <button class="btn btn--sm">Label</button>
+    <button class="btn btn--sm btn--hover-demo">Label</button>
+    <button class="btn btn--sm btn--active-demo">Label</button>
+    <button class="btn btn--sm" disabled>Label</button>
+  </div>
+
+  <h2>Medium</h2>
+  <div class="row">
+    <button class="btn btn--md">Label</button>
+    <button class="btn btn--md btn--hover-demo">Label</button>
+    <button class="btn btn--md btn--active-demo">Label</button>
+    <button class="btn btn--md" disabled>Label</button>
+  </div>
+
+  <h2>Large</h2>
+  <div class="row">
+    <button class="btn btn--lg">Label</button>
+    <button class="btn btn--lg btn--hover-demo">Label</button>
+    <button class="btn btn--lg btn--active-demo">Label</button>
+    <button class="btn btn--lg" disabled>Label</button>
+  </div>
+
+  <script>
+    /* Force hover/active states for demo display */
+    document.querySelectorAll('.btn--hover-demo').forEach(btn => {
+      btn.style.background = getComputedStyle(document.documentElement).getPropertyValue('--semantic-color-action-primary-hover');
+    });
+    document.querySelectorAll('.btn--active-demo').forEach(btn => {
+      btn.style.background = getComputedStyle(document.documentElement).getPropertyValue('--semantic-color-action-primary-active');
+    });
+  </script>
+
+</body>
+</html>
